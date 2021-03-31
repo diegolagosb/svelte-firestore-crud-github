@@ -10,6 +10,20 @@
 	let editStatus = false;
 	let currentId;
 
+	const getCurrentDate = () => {
+		var hoy = new Date();
+		var fecha =
+			hoy.getDate() +
+			"-" +
+			(hoy.getMonth() + 1) +
+			"-" +
+			hoy.getFullYear();
+		var hora =
+			hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
+		var fechaYHora = fecha + " " + hora;
+		return fechaYHora;
+	};
+
 	db.collection("tasks").onSnapshot((querySnapshot) => {
 		let docs = [];
 		querySnapshot.forEach((doc) => {
@@ -24,7 +38,7 @@
 			.doc()
 			.set({
 				...task,
-				createdAt: Date.now(),
+				createdAt: getCurrentDate(),
 			});
 		toastr.success("Product Added Successfully", "", {
 			timeOut: 3000,
@@ -122,6 +136,7 @@
 					</div>
 
 					<p>{task.description}</p>
+					<p>{task.createdAt}</p>
 					<button
 						on:click={deleteTask(task.id)}
 						class="btn btn-danger"
