@@ -77,6 +77,9 @@
 <div class="container p-4">
 	<div class="row justify-content-center">
 		<div class="col-md-8">
+			<center>
+				<h1>TODO APP USING SVELTE</h1>
+			</center>
 			<form
 				on:submit|preventDefault={handleSubmit}
 				class="card card-body"
