@@ -80,6 +80,7 @@
 			<center>
 				<h1>TODO APP USING SVELTE</h1>
 			</center>
+			<h1>TODO APP USING SVELTE</h1>
 			<form
 				on:submit|preventDefault={handleSubmit}
 				class="card card-body"
