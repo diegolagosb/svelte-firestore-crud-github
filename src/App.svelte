@@ -98,6 +98,13 @@
 		<div class="col-md-12 col-lg-12">
 			<center>
 				<h1>TODO APP USING SVELTE</h1>
+				<p class="credits">
+					Made with <i
+						class="material-icons"
+						style="vertical-align: middle; color: red;">favorite</i
+					>
+					by Diego Lagos
+				</p>
 			</center>
 			<form
 				on:submit|preventDefault={handleSubmit}
@@ -123,7 +130,7 @@
 					{#if !editStatus}Save {:else} Update {/if}
 				</button>
 				{#if editStatus}
-					<button on:click={onCancel} class="btn btn-info"
+					<button on:click={onCancel} class="btn btn-danger"
 						>Cancel</button
 					>
 				{/if}
@@ -159,6 +166,7 @@
 								</div>
 
 								<p>{task.createdAt}</p>
+
 								<button
 									on:click={deleteTask(task.id)}
 									class="btn btn-danger"
@@ -183,5 +191,24 @@
 		height: 65vh;
 		overflow-y: scroll;
 		overflow-x: hidden;
+	}
+
+	.credits {
+		font-weight: bold;
+		font-style: italic;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p {
+		color: rgb(49, 104, 187);
+	}
+
+	.btn-primary {
+		background-color: rgb(49, 104, 187) !important;
 	}
 </style>
