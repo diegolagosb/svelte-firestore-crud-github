@@ -64,12 +64,17 @@
 	};
 
 	const deleteTask = async (id) => {
-		await db.collection("tasks").doc(id).delete();
-		toastr.success("Product Deleted Successfully", "", {
-			timeOut: 3000,
-			progressBar: true,
-			positionClass: "toast-bottom-right",
-		});
+		let confirmation = confirm(
+			"¿Estás seguro de eliminar esta tarjeta? No hay vuelta a atrás..."
+		);
+		if (confirmation) {
+			await db.collection("tasks").doc(id).delete();
+			toastr.success("Product Deleted Successfully", "", {
+				timeOut: 3000,
+				progressBar: true,
+				positionClass: "toast-bottom-right",
+			});
+		}
 	};
 
 	const handleSubmit = () => {
@@ -88,9 +93,9 @@
 	};
 </script>
 
-<div class="container p-4">
+<div class="container pt-5 col-10">
 	<div class="row justify-content-center">
-		<div class="col-md-8">
+		<div class="col-md-12 col-lg-12">
 			<center>
 				<h1>TODO APP USING SVELTE</h1>
 			</center>
@@ -124,33 +129,59 @@
 				{/if}
 			</form>
 
-			{#each tasks as task}
-				<div class="card card-body mt-2">
-					<div class="d-flex justify-content-between">
-						<h5>{task.name}</h5>
-						<i
-							class="material-icons"
-							on:click={editTask(task)}
-							style="vertical-align: middle;">edit</i
+			<div class="cards-container mt-4">
+				<div class="row">
+					{#each tasks as task}
+						<div
+							class="col-md-6 col-lg-4 col-xl-3 d-flex align-items-stretch"
 						>
-					</div>
+							<div class="card card-body mt-2">
+								<div
+									class="d-flex justify-content-between align-items-stretch"
+								>
+									<h5>{task.name}</h5>
+									<i
+										class="material-icons"
+										on:click={editTask(task)}
+										style="vertical-align: middle;">edit</i
+									>
+								</div>
 
-					<p>{task.description}</p>
-					<p>{task.createdAt}</p>
-					<button
-						on:click={deleteTask(task.id)}
-						class="btn btn-danger"
-					>
-						<i
-							class="material-icons"
-							style="vertical-align: middle;">delete_forever</i
-						>
-					</button>
+								<div class="my-auto">
+									{#if task.description.includes("https://")}<a
+											href={task.description}
+											target="_blank"
+											>{task.description}</a
+										>
+									{:else}
+										<p>{task.description}</p>
+									{/if}
+								</div>
+
+								<p>{task.createdAt}</p>
+								<button
+									on:click={deleteTask(task.id)}
+									class="btn btn-danger"
+								>
+									<i
+										class="material-icons"
+										style="vertical-align: middle;"
+										>delete_forever</i
+									>
+								</button>
+							</div>
+						</div>
+					{/each}
 				</div>
-			{/each}
+			</div>
 		</div>
 	</div>
 </div>
 
 <style>
+	.cards-container {
+		height: 65vh;
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
 </style>
